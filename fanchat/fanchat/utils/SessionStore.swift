@@ -39,7 +39,7 @@ class SessionStore: ObservableObject {
         authRef.createUser(withEmail: email, password: password)
     }
     
-    func signOut ( ) -> Bool {
+    func signOut () -> Bool {
         do {
             try authRef.signOut()
             self.session = nil

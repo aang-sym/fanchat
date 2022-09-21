@@ -23,6 +23,10 @@
 		67A6C76C28DB14F700375046 /* ChatList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C76B28DB14F700375046 /* ChatList.swift */; };
 		67A6C76E28DB151400375046 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C76D28DB151400375046 /* Login.swift */; };
 		67A6C77128DB1BA300375046 /* FullWidthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C77028DB1BA300375046 /* FullWidthButton.swift */; };
+		67A6C77328DB253B00375046 /* ChatroomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C77228DB253B00375046 /* ChatroomsViewModel.swift */; };
+		67A6C77528DB256900375046 /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C77428DB256900375046 /* MessagesViewModel.swift */; };
+		67A6C77728DB285F00375046 /* Join.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C77628DB285F00375046 /* Join.swift */; };
+		67A6C77928DB286D00375046 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C77828DB286C00375046 /* Messages.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +41,10 @@
 		67A6C76B28DB14F700375046 /* ChatList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatList.swift; sourceTree = "<group>"; };
 		67A6C76D28DB151400375046 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		67A6C77028DB1BA300375046 /* FullWidthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullWidthButton.swift; sourceTree = "<group>"; };
+		67A6C77228DB253B00375046 /* ChatroomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomsViewModel.swift; sourceTree = "<group>"; };
+		67A6C77428DB256900375046 /* MessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewModel.swift; sourceTree = "<group>"; };
+		67A6C77628DB285F00375046 /* Join.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Join.swift; sourceTree = "<group>"; };
+		67A6C77828DB286C00375046 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +109,8 @@
 			isa = PBXGroup;
 			children = (
 				67A6C76828DAF4E200375046 /* SessionStore.swift */,
+				67A6C77228DB253B00375046 /* ChatroomsViewModel.swift */,
+				67A6C77428DB256900375046 /* MessagesViewModel.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -110,6 +120,8 @@
 			children = (
 				67A6C76B28DB14F700375046 /* ChatList.swift */,
 				67A6C76D28DB151400375046 /* Login.swift */,
+				67A6C77628DB285F00375046 /* Join.swift */,
+				67A6C77828DB286C00375046 /* Messages.swift */,
 			);
 			path = screens;
 			sourceTree = "<group>";
@@ -209,7 +221,11 @@
 				67A6C76E28DB151400375046 /* Login.swift in Sources */,
 				67A6C76C28DB14F700375046 /* ChatList.swift in Sources */,
 				67A6C74828DAEAC000375046 /* fanchatApp.swift in Sources */,
+				67A6C77328DB253B00375046 /* ChatroomsViewModel.swift in Sources */,
+				67A6C77728DB285F00375046 /* Join.swift in Sources */,
 				67A6C76928DAF4E200375046 /* SessionStore.swift in Sources */,
+				67A6C77928DB286D00375046 /* Messages.swift in Sources */,
+				67A6C77528DB256900375046 /* MessagesViewModel.swift in Sources */,
 				67A6C77128DB1BA300375046 /* FullWidthButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
