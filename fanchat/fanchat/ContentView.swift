@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var sessionStore = SessionStore()
+    
+    init() {
+        sessionStore.listen()
+    }
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+        ChatList()
+            .fullScreenCover(isPresented: $sessionStore.isAnon, content: {
+                    Login()
+            })
     }
 }
 
