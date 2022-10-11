@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		672643F428E47FB4002506CE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 672643F328E47FB4002506CE /* FirebaseAuth */; };
-		672643F628E47FB4002506CE /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 672643F528E47FB4002506CE /* FirebaseStorage */; };
+		672643F928E86630002506CE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 672643F828E86630002506CE /* FirebaseAuth */; };
+		672643FB28E86630002506CE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 672643FA28E86630002506CE /* FirebaseFirestore */; };
+		672643FD28E86630002506CE /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 672643FC28E86630002506CE /* FirebaseStorage */; };
+		6788FCB528F56B4200E4B240 /* MainMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6788FCB428F56B4200E4B240 /* MainMessagesView.swift */; };
 		67A6C74828DAEAC000375046 /* fanchatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C74728DAEAC000375046 /* fanchatApp.swift */; };
 		67A6C74A28DAEAC000375046 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C74928DAEAC000375046 /* LoginView.swift */; };
 		67A6C74C28DAEAC300375046 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67A6C74B28DAEAC300375046 /* Assets.xcassets */; };
@@ -17,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6788FCB428F56B4200E4B240 /* MainMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMessagesView.swift; sourceTree = "<group>"; };
 		67A6C74428DAEAC000375046 /* fanchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fanchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67A6C74728DAEAC000375046 /* fanchatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fanchatApp.swift; sourceTree = "<group>"; };
 		67A6C74928DAEAC000375046 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -31,14 +34,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				672643F428E47FB4002506CE /* FirebaseAuth in Frameworks */,
-				672643F628E47FB4002506CE /* FirebaseStorage in Frameworks */,
+				672643F928E86630002506CE /* FirebaseAuth in Frameworks */,
+				672643FB28E86630002506CE /* FirebaseFirestore in Frameworks */,
+				672643FD28E86630002506CE /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6788FCB328F56B1D00E4B240 /* MainMessages */ = {
+			isa = PBXGroup;
+			children = (
+				6788FCB428F56B4200E4B240 /* MainMessagesView.swift */,
+			);
+			path = MainMessages;
+			sourceTree = "<group>";
+		};
 		67A6C73B28DAEAC000375046 = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +70,7 @@
 		67A6C74628DAEAC000375046 /* fanchat */ = {
 			isa = PBXGroup;
 			children = (
+				6788FCB328F56B1D00E4B240 /* MainMessages */,
 				67A6C75628DAF19A00375046 /* GoogleService-Info.plist */,
 				67A6C74728DAEAC000375046 /* fanchatApp.swift */,
 				67A6C74928DAEAC000375046 /* LoginView.swift */,
@@ -93,8 +106,9 @@
 			);
 			name = fanchat;
 			packageProductDependencies = (
-				672643F328E47FB4002506CE /* FirebaseAuth */,
-				672643F528E47FB4002506CE /* FirebaseStorage */,
+				672643F828E86630002506CE /* FirebaseAuth */,
+				672643FA28E86630002506CE /* FirebaseFirestore */,
+				672643FC28E86630002506CE /* FirebaseStorage */,
 			);
 			productName = fanchat;
 			productReference = 67A6C74428DAEAC000375046 /* fanchat.app */;
@@ -125,7 +139,7 @@
 			);
 			mainGroup = 67A6C73B28DAEAC000375046;
 			packageReferences = (
-				672643F228E47FB4002506CE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				672643F728E86630002506CE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 67A6C74528DAEAC000375046 /* Products */;
 			projectDirPath = "";
@@ -155,6 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				67A6C74A28DAEAC000375046 /* LoginView.swift in Sources */,
+				6788FCB528F56B4200E4B240 /* MainMessagesView.swift in Sources */,
 				67A6C74828DAEAC000375046 /* fanchatApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,7 +382,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		672643F228E47FB4002506CE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		672643F728E86630002506CE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
@@ -378,14 +393,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		672643F328E47FB4002506CE /* FirebaseAuth */ = {
+		672643F828E86630002506CE /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 672643F228E47FB4002506CE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 672643F728E86630002506CE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		672643F528E47FB4002506CE /* FirebaseStorage */ = {
+		672643FA28E86630002506CE /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 672643F228E47FB4002506CE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 672643F728E86630002506CE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		672643FC28E86630002506CE /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 672643F728E86630002506CE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */

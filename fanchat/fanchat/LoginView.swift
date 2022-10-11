@@ -7,16 +7,34 @@
 
 import SwiftUI
 import Firebase
+import FirebaseStorage
+import FirebaseFirestore
+
+class FirebaseManager: NSObject {
+
+    let auth: Auth
+    let storage: Storage
+    let firestore: Firestore
+    
+    static let shared = FirebaseManager()
+
+    override init() {
+        FirebaseApp.configure()
+
+        self.auth = Auth.auth()
+        self.storage = Storage.storage()
+        self.firestore = Firestore.firestore()
+
+        super.init()
+    }
+
+}
 
 struct LoginView: View {
 
     @State var isLoginMode = false
     @State var email = ""
     @State var password = ""
-    
-    init() {
-        FirebaseApp.configure()
-    }
 
     var body: some View {
         NavigationView {
@@ -35,9 +53,9 @@ struct LoginView: View {
                             .keyboardType(.emailAddress)
                             .autocapitalization(.none)
                         SecureField("Password", text: $password)
-                        if !isLoginMode {
-                            SecureField("Confirm Password", text: $password)
-                        }
+//                        if !isLoginMode {
+//                            SecureField("Confirm Password", text: $password)
+//                        }
                     }
                     .padding(12)
                     .background(Color.white)
@@ -58,6 +76,9 @@ struct LoginView: View {
                          .cornerRadius(10)
 
                     }
+                    
+                    Text(self.loginStatusMessage)
+                        .foregroundColor(.red)
                 }
                 .padding()
 
@@ -70,13 +91,44 @@ struct LoginView: View {
     }
 
     private func handleAction() {
-        if isLoginMode {
-            print("Should log into Firebase with existing credentials")
-        } else {
-            print("Register a new account inside of Firebase Auth and then store image in Storage somehow....")
+            if isLoginMode {
+                loginUser()
+            } else {
+                createNewAccount()
+            }
+        }
+
+    private func loginUser() {
+        FirebaseManager.shared.auth.signIn(withEmail: email, password: password) { result, err in
+            if let err = err {
+                print("Failed to login user:", err)
+                self.loginStatusMessage = "Failed to login user: \(err)"
+                return
+            }
+
+            print("Successfully logged in as user: \(result?.user.uid ?? "")")
+
+            self.loginStatusMessage = "Successfully logged in as user: \(result?.user.uid ?? "")"
+        }
+    }
+
+    @State var loginStatusMessage = ""
+
+    private func createNewAccount() {
+        FirebaseManager.shared.auth.createUser(withEmail: email, password: password) { result, err in
+            if let err = err {
+                print("Failed to create user:", err)
+                self.loginStatusMessage = "Failed to create user: \(err)"
+                return
+            }
+
+            print("Successfully created user: \(result?.user.uid ?? "")")
+
+            self.loginStatusMessage = "Successfully created user: \(result?.user.uid ?? "")"
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
