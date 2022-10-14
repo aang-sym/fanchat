@@ -7,173 +7,389 @@
 
 import SwiftUI
 
+extension View {
+	func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+		clipShape( RoundedCorner(radius: radius, corners: corners) )
+	}
+}
+
+struct RoundedCorner: Shape {
+	
+	var radius: CGFloat = .infinity
+	var corners: UIRectCorner = .allCorners
+	
+	func path(in rect: CGRect) -> Path {
+		let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+		return Path(path.cgPath)
+	}
+}
+
+struct sportSelectView: View {
+	var league: String
+	var leagueImage: String
+	
+	var body: some View {
+		ScrollView(.horizontal) {
+			HStack {
+				ForEach(0..<5, id: \.self) { num in
+					HStack {
+						HStack {
+							Image(leagueImage)
+								.resizable()
+								.scaledToFit()
+								.frame(width: 40)
+							
+							VStack {
+								Text(league)
+									.font(.system(size: 15, weight: .bold))
+									.foregroundColor(Color(.white))
+								
+							}
+						}   .padding()
+							.background(
+								RoundedRectangle(cornerRadius: 50, style: .continuous).fill(Color.blue).frame(height: 30)
+								
+							)
+					}
+				}
+			}.padding(.leading, 10)
+		}
+	}
+}
+
+struct teamView: View {
+	@State var isExpanded = false
+	var team: String
+	var teamImage: String
+	
+	var body: some View {
+		VStack {
+			if isExpanded {
+				Image(teamImage)
+					.resizable()
+					.scaledToFit()
+					.frame(width:90, height:90)
+					.padding(.top)
+			} else {
+				Image(teamImage)
+					.resizable()
+					.scaledToFit()
+					.frame(width:60, height:60)
+			}
+			if isExpanded {
+				Text(team)
+					.font(.system(size: 10, weight: .semibold))
+					.foregroundColor(Color(.black))
+					.multilineTextAlignment(.center)
+					.padding(.bottom)
+			}
+		}.frame(minWidth: 0, maxWidth: .infinity)
+	}
+}
+
+struct matchDetailsView: View {
+	var arena: String
+	var round: String
+	var homeScore: String
+	var awayScore: String
+	var liveTime: String
+	@State var isExpanded = false
+	
+	var body: some View {
+		VStack(alignment: .center) {
+			if isExpanded {
+				Text(arena)
+					.font(.system(size: 18, weight: .bold))
+					.fontWeight(.semibold)
+					.padding(.top)
+				Text(round)
+					.font(.system(size: 14))
+					.foregroundColor(Color(.lightGray))
+					.padding(.bottom, -15)
+			}
+			Text("\(homeScore) - \(awayScore)")
+				.font(.system(size: 26, weight: .bold))
+				.foregroundColor(Color(.black))
+				.padding(.top)
+				.padding(.bottom, 0.1)
+			Text(liveTime)
+				.frame(width: 90, height: 23)
+				.font(.system(size: 13, weight: .bold))
+				.foregroundColor(Color("timer"))
+				.background(
+					RoundedRectangle(cornerRadius: 50, style: .continuous)
+						.fill(Color("timerBackground"))
+					
+				)
+				.overlay(
+					RoundedRectangle(cornerRadius: 50, style: .continuous)
+						.stroke(Color("timer"), lineWidth: 2)
+				).padding(.bottom)
+				.padding(.top, 0.1)
+		}.frame(minWidth: 0, maxWidth: .infinity)
+	}
+}
+
+struct matchExpandedView: View {
+	var body: some View {
+		VStack {
+			Button(action: {
+				accessChat()
+			}) {
+				Label("Chat", systemImage: "message")
+			}
+		}.padding(.bottom)
+	}
+	
+	func accessChat() {}
+}
+
+struct liveMatchView: View {
+	@State var isExpanded = true
+	
+	var body: some View {
+		HStack(spacing: 16) {
+			if isExpanded {
+				VStack{
+					HStack {
+						teamView(isExpanded: true, team: "Collingwood Magpies", teamImage: "afl_collingwood")
+							.padding(.leading)
+						Spacer()
+						
+						matchDetailsView(arena: "MCG", round: "Round 2", homeScore: "112", awayScore: "107", liveTime: "Q4 21:05", isExpanded: true)
+						Spacer()
+						
+						teamView(isExpanded: true, team: "Geelong Cats", teamImage: "afl_geelong")
+							.padding(.trailing)
+					}
+				}
+			} else {
+				teamView(isExpanded: false, team: "Collingwood Magpies", teamImage: "afl_collingwood")
+					.padding(.leading)
+				Spacer()
+				
+				matchDetailsView(arena: "MCG", round: "Round 2", homeScore: "67", awayScore: "53", liveTime: "Q3 21:05", isExpanded: false)
+				Spacer()
+				
+				teamView(isExpanded: false, team: "Geelong Cats", teamImage: "afl_geelong")
+					.padding(.trailing)
+			}
+		}.padding(.vertical, 5)
+			.background(
+				RoundedRectangle(
+					cornerRadius: 15,
+					style: .continuous)
+				.fill(Color.white
+					.shadow(.drop(color: .gray, radius: 2, x: 0, y: 3)))
+				.transition(.scale)
+				.onTapGesture {
+					withAnimation{
+						isExpanded.toggle()
+					}
+				}
+			).padding(.vertical, 5)
+	}
+}
+
+struct teamView2: View {
+	var team: String
+	var teamImage: String
+	var teamStanding: String
+	
+	var body: some View {
+		VStack {
+			Image(teamImage)
+				.resizable()
+				.scaledToFit()
+				.frame(width:50, height:50)
+			Group {
+				Text(teamStanding)
+					.font(.system(size: 10, weight: .regular))
+					.foregroundColor(Color(.gray)) +
+				Text(" ") +
+				Text(team)
+					.font(.system(size: 10, weight: .regular))
+					.foregroundColor(Color(.black))
+			}.padding(.top, -10)
+		}
+	}
+}
+
+struct matchDetailsView2: View {
+	var homeScore: String
+	var awayScore: String
+	var period: String
+	var liveTime: String
+	
+	var body: some View {
+		HStack(alignment: .center) {
+				Text("\(homeScore)")
+					.font(.system(size: 35, weight: .regular))
+					.foregroundColor(Color(.black))
+				  .frame(alignment: .leading)
+			VStack {
+				HStack {
+					Image(systemName: "circle.fill")
+						.foregroundColor(Color.red)
+						.font(.system(size: 5))
+						.padding(.trailing, -4)
+					Text(period)
+						.font(.system(size: 12, weight: .semibold))
+				}
+				Text(liveTime)
+					.font(.system(size: 12, weight: .regular))
+			}				.frame(alignment: .center)
+				.padding(.horizontal, 7)
+			Text("\(awayScore)")
+				.font(.system(size: 35, weight: .regular))
+				.foregroundColor(Color(.black))
+				.frame(alignment: .trailing)
+		}
+	}
+}
+
+struct liveMatchView2: View {
+	@State var isExpanded = true
+	
+	var body: some View {
+		HStack(spacing: 16) {
+				VStack{
+					HStack {
+						teamView2(team: "Magpies", teamImage: "afl_collingwood", teamStanding: "4")
+							.padding(.leading, 25)
+							.padding(.vertical)
+						Spacer()
+						
+						matchDetailsView2(homeScore: "112", awayScore: "107", period: "Q4", liveTime: "21:05")
+						Spacer()
+						
+						teamView2(team: "Cats", teamImage: "afl_geelong", teamStanding: "1")
+							.padding(.trailing, 25)
+							.padding(.vertical)
+					}
+					HStack {
+						VStack{
+							Image("fox_footy_logo")
+								.resizable()
+								.scaledToFit()
+								.frame(width: 40)
+						}.padding(.leading, 32.5)
+						Spacer()
+						VStack{
+							Text("Melbourne Cricket Ground")
+								.font(.system(size: 12, weight: .regular))
+							Text("Preliminary Final")
+								.font(.system(size: 12, weight: .regular))
+								.foregroundColor(Color(.darkGray))
+						}
+						Spacer()
+						VStack{
+							Image("afl_logo")
+								.resizable()
+								.scaledToFit()
+								.frame(width: 40)
+						}.padding(.trailing, 32.5)
+					}.padding(.top, -27.5)
+						.padding(.bottom, 2.5)
+						.background(
+						Rectangle()
+						.fill(Color.gray)
+						.opacity(0.1)
+						.frame(height: 75)
+						)
+				}
+		}.padding(.vertical, 5)
+			.background(
+				RoundedRectangle(
+					cornerRadius: 15,
+					style: .continuous)
+				.fill(Color.white
+					.shadow(.drop(color: .gray, radius: 2, x: 0, y: 3)))
+			)			.mask(
+				RoundedRectangle(
+					cornerRadius: 15,
+					style: .continuous)
+			.padding(.vertical, 5)
+				)
+	}
+}
+
+struct liveMatchesView: View {
+	var body: some View {
+		ScrollView {
+			ForEach(0..<1, id: \.self) { num in
+				VStack {
+					liveMatchView()
+					liveMatchView2()
+				}.padding(.horizontal, 10)
+			}
+		}
+	}
+}
+
+struct settingsButton: View {
+	@State var shouldShowLogOutOptions = false
+	
+	var body: some View {
+		Menu {
+			Button(action: {
+				hideMatches()
+			}) {
+				Label("Completed matches", systemImage: "eye.slash")
+			}
+			Button(action: {
+				signOut()
+			}) {
+				Label("Sign out", systemImage: "rectangle.portrait.and.arrow.right")
+			}
+		} label: {
+			Label("", systemImage: "ellipsis")
+				.font(.system(size: 24, weight: .bold))
+				.foregroundColor(Color(.label))
+		}
+	}
+	
+	func signOut() {}
+	func hideMatches() {}
+}
+
+struct customNavBar: View {
+	var body: some View {
+		HStack {
+			VStack(alignment: .leading) {
+				Text("fanchat")
+					.font(.system(size: 24, weight: .bold))
+			}
+			Spacer()
+			settingsButton()
+		}
+		.padding()
+	}
+}
+
 struct MainMessagesView: View {
-
-    @State var shouldShowLogOutOptions = false
-
-    private var customNavBar: some View {
-        HStack(spacing: 16) {
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text("USERNAME")
-                    .font(.system(size: 24, weight: .bold))
-
-                HStack {
-                    Circle()
-                        .foregroundColor(.green)
-                        .frame(width: 14, height: 14)
-                    Text("online")
-                        .font(.system(size: 12))
-                        .foregroundColor(Color(.lightGray))
-                }
-
-            }
-
-            Spacer()
-            Button {
-                shouldShowLogOutOptions.toggle()
-            } label: {
-                Image(systemName: "gear")
-                    .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(Color(.label))
-            }
-        }
-        .padding()
-        .actionSheet(isPresented: $shouldShowLogOutOptions) {
-            .init(title: Text("Settings"), message: Text("What do you want to do?"), buttons: [
-                .destructive(Text("Sign Out"), action: {
-                    print("handle sign out")
-                }),
-                    .cancel()
-            ])
-        }
-    }
-
-    var body: some View {
-        NavigationView {
-            
-            VStack {
-                customNavBar
-                sportSelectView
-                liveMatchesView
-            }
-            .overlay(
-                newMessageButton, alignment: .bottom)
-            .navigationBarHidden(true)
-            .background(Color("pageBackground"))
-        }
-    }
-    
-    private var sportSelectView: some View{
-        ScrollView(.horizontal) {
-            HStack(spacing: 20) {
-                ForEach(0..<10, id: \.self) { num in
-                    HStack {
-                        HStack {
-                            Image(systemName: "football")
-                                .foregroundColor(.black)
-                                .font(.system(size: 32))
-                                .padding(8)
-                                .frame(width: 25, height: 10)
-                            
-                            VStack {
-                                Text("AFL")
-                                    .font(.system(size: 15, weight: .bold))
-                            }
-                        }   .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 50, style: .continuous).fill(Color.blue)
-                            )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 50, style: .continuous)
-                                    .stroke(Color.blue, lineWidth: 1)
-                            )
-                    }
-                }
-            }.padding(10)
-        }
-        
-        }
-    
-    private var liveMatchesView: some View {
-        ScrollView {
-            ForEach(0..<5, id: \.self) { num in
-                VStack {
-                    HStack(spacing: 16) {
-                        VStack(alignment: .leading) {
-                            Image("afl_collingwood")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width:70, height:80)
-                                .font(.system(size: 32))
-                                .padding(.leading, 25)
-                            
-                            Text("Collingwood")
-                                .font(.system(size: 10, weight: .semibold))
-                                .foregroundColor(Color(.black))
-                                .multilineTextAlignment(.center)
-                                .padding(.leading, 30)
-                        }
-                        Spacer()
-
-                        VStack(alignment: .center) {
-                            Text("MCG")
-                                .font(.system(size: 18, weight: .bold))
-                                .fontWeight(.semibold)
-                            Text("Round 2")
-                                .font(.system(size: 14))
-                                .foregroundColor(Color(.lightGray))
-                            Text("67 - 53")
-                                .font(.system(size: 25, weight: .bold))
-                                .foregroundColor(Color(.black))
-                        }
-                        Spacer()
-                        
-                        VStack(alignment: .leading) {
-                            Image("afl_geelong")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width:70, height:80)
-                                .font(.system(size: 32))
-                            
-                            Text("Geelong")
-                                .font(.system(size: 10, weight: .semibold))
-                                .foregroundColor(Color(.black))
-                                .multilineTextAlignment(.center)
-                                
-                        }.padding(.trailing, 25)
-                        .padding(.vertical, 25)
-                    }.background(
-                        RoundedRectangle(cornerRadius: 15, style: .continuous).fill(Color.white.shadow(.drop(color: .gray, radius: 2, x: 0, y: 3)))
-                    ) .padding(.vertical, 8)
-                }     .padding(.horizontal)
-
-            }.padding(.bottom, 50)
-        }
-    }
-
-    private var newMessageButton: some View {
-        Button {
-
-        } label: {
-            HStack {
-                Spacer()
-                Text("+ New Message")
-                    .font(.system(size: 16, weight: .bold))
-                Spacer()
-            }
-            .foregroundColor(.white)
-            .padding(.vertical)
-                .background(Color.blue)
-                .cornerRadius(32)
-                .padding(.horizontal)
-                .shadow(radius: 15)
-        }
-    }
+	
+	var body: some View {
+		NavigationView {
+			
+			VStack {
+				sportSelectView(league: "AFL", leagueImage: "afl_logo")
+				liveMatchesView()
+			}
+			.navigationTitle("fanchat")
+			.navigationBarTitleDisplayMode(.inline)
+			.toolbar {
+				ToolbarItemGroup(placement: .navigationBarTrailing) {
+					settingsButton()
+				}
+			}
+			.background(Color.gray)
+		}
+	}
 }
 
 struct MainMessagesView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainMessagesView()
-    }
+	static var previews: some View {
+		MainMessagesView()
+	}
 }
