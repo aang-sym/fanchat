@@ -65,6 +65,8 @@
 		67A6C74C28DAEAC300375046 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67A6C74B28DAEAC300375046 /* Assets.xcassets */; };
 		67A6C75028DAEAC300375046 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67A6C74F28DAEAC300375046 /* Preview Assets.xcassets */; };
 		67A6C75728DAF19A00375046 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67A6C75628DAF19A00375046 /* GoogleService-Info.plist */; };
+		67F7EB83292B82F100E92849 /* MatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F7EB82292B82F100E92849 /* MatchViewModel.swift */; };
+		67F7EB86292B83CB00E92849 /* nbaMatches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F7EB85292B83CB00E92849 /* nbaMatches.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +127,8 @@
 		67A6C74D28DAEAC300375046 /* fanchat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = fanchat.entitlements; sourceTree = "<group>"; };
 		67A6C74F28DAEAC300375046 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		67A6C75628DAF19A00375046 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		67F7EB82292B82F100E92849 /* MatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewModel.swift; sourceTree = "<group>"; };
+		67F7EB85292B83CB00E92849 /* nbaMatches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nbaMatches.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +227,8 @@
 		67A6C74628DAEAC000375046 /* fanchat */ = {
 			isa = PBXGroup;
 			children = (
+				67F7EB84292B839500E92849 /* Models */,
+				67F7EB81292B82C200E92849 /* ViewModels */,
 				6788FCBA28F963E800E4B240 /* Resources */,
 				6788FCB328F56B1D00E4B240 /* MainMessages */,
 				67A6C75628DAF19A00375046 /* GoogleService-Info.plist */,
@@ -242,6 +248,22 @@
 				67A6C74F28DAEAC300375046 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		67F7EB81292B82C200E92849 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				67F7EB82292B82F100E92849 /* MatchViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		67F7EB84292B839500E92849 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				67F7EB85292B83CB00E92849 /* nbaMatches.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -373,6 +395,8 @@
 				6788FCB728F82A8D00E4B240 /* MainMessagesViewCopy.swift in Sources */,
 				6788FCB928F8E3D600E4B240 /* ContentView.swift in Sources */,
 				67A6C74A28DAEAC000375046 /* LoginView.swift in Sources */,
+				67F7EB86292B83CB00E92849 /* nbaMatches.swift in Sources */,
+				67F7EB83292B82F100E92849 /* MatchViewModel.swift in Sources */,
 				6788FCB528F56B4200E4B240 /* MainMessagesView.swift in Sources */,
 				67A6C74828DAEAC000375046 /* fanchatApp.swift in Sources */,
 			);

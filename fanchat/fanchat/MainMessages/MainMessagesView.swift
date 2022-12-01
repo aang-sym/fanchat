@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Foundation
+import FirebaseFirestore
 
 extension View {
 	func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
@@ -223,10 +225,10 @@ struct matchDetailsView2: View {
 	
 	var body: some View {
 		HStack(alignment: .center) {
-				Text("\(homeScore)")
-					.font(.system(size: 35, weight: .regular))
-					.foregroundColor(Color(.black))
-				  .frame(alignment: .leading)
+			Text("\(homeScore)")
+				.font(.system(size: 30, weight: .regular))
+				.foregroundColor(Color(.black))
+				.frame(alignment: .leading)
 			VStack {
 				HStack {
 					Image(systemName: "circle.fill")
@@ -241,7 +243,7 @@ struct matchDetailsView2: View {
 			}				.frame(alignment: .center)
 				.padding(.horizontal, 7)
 			Text("\(awayScore)")
-				.font(.system(size: 35, weight: .regular))
+				.font(.system(size: 30, weight: .regular))
 				.foregroundColor(Color(.black))
 				.frame(alignment: .trailing)
 		}
@@ -249,79 +251,97 @@ struct matchDetailsView2: View {
 }
 
 struct liveMatchView2: View {
-	@State var isExpanded = true
+	var homeName: String
+	var awayName: String
+	var homeScore: String
+	var awayScore: String
+	var homeLogo: String
+	var awayLogo: String
+	var venueName: String
 	
 	var body: some View {
 		HStack(spacing: 16) {
-				VStack{
-					HStack {
-						teamView2(team: "Magpies", teamImage: "afl_collingwood", teamStanding: "4")
-							.padding(.leading, 25)
-							.padding(.vertical)
-						Spacer()
-						
-						matchDetailsView2(homeScore: "112", awayScore: "107", period: "Q4", liveTime: "21:05")
-						Spacer()
-						
-						teamView2(team: "Cats", teamImage: "afl_geelong", teamStanding: "1")
-							.padding(.trailing, 25)
-							.padding(.vertical)
-					}
-					HStack {
-						VStack{
-							Image("fox_footy_logo")
-								.resizable()
-								.scaledToFit()
-								.frame(width: 40)
-						}.padding(.leading, 32.5)
-						Spacer()
-						VStack{
-							Text("Melbourne Cricket Ground")
-								.font(.system(size: 12, weight: .regular))
-							Text("Preliminary Final")
-								.font(.system(size: 12, weight: .regular))
-								.foregroundColor(Color(.darkGray))
-						}
-						Spacer()
-						VStack{
-							Image("afl_logo")
-								.resizable()
-								.scaledToFit()
-								.frame(width: 40)
-						}.padding(.trailing, 32.5)
-					}.padding(.top, -27.5)
-						.padding(.bottom, 2.5)
-						.background(
-						Rectangle()
-						.fill(Color.gray)
-						.opacity(0.1)
-						.frame(height: 75)
-						)
+			VStack{
+				HStack{
+					teamView2(team: homeName, teamImage: homeLogo, teamStanding: "4")
+						.padding(.leading, 25)
+						.padding(.top, 15)
+						.padding(.bottom, 10)
+					Spacer()
+					
+					matchDetailsView2(homeScore: homeScore, awayScore: awayScore, period: "Q4", liveTime: "1:05")
+					Spacer()
+					
+					teamView2(team: awayName, teamImage: awayLogo, teamStanding: "1")
+						.padding(.trailing, 25)
+						.padding(.top, 15)
+						.padding(.bottom, 10)
 				}
-		}.padding(.vertical, 5)
-			.background(
-				RoundedRectangle(
-					cornerRadius: 15,
-					style: .continuous)
-				.fill(Color.white
-					.shadow(.drop(color: .gray, radius: 2, x: 0, y: 3)))
-			)			.mask(
-				RoundedRectangle(
-					cornerRadius: 15,
-					style: .continuous)
+				HStack {
+					VStack{
+						Image("tnt_logo")
+							.resizable()
+							.scaledToFit()
+							.frame(width: 30)
+					}.padding(.leading, 32.5)
+					Spacer()
+					VStack{
+						Text(venueName)
+							.font(.system(size: 12, weight: .regular))
+						//													Text("Preliminary Final")
+						//														.font(.system(size: 12, weight: .regular))
+						//														.foregroundColor(Color(.darkGray))
+					}
+					Spacer()
+					VStack{
+						Image("nba_logo")
+							.resizable()
+							.scaledToFit()
+							.frame(width: 40, height: 35)
+					}.padding(.trailing, 32.5)
+						.padding(.vertical)
+				}.padding(.top, -27.5)
+					.padding(.bottom, 2.5)
+					.background(
+						Rectangle()
+							.fill(Color.gray)
+							.opacity(0.1)
+							.frame(height: 75)
+					)
+			}
+		}
+		.background(
+			RoundedRectangle(
+				cornerRadius: 15,
+				style: .continuous)
+			.fill(Color.white
+				.shadow(.drop(color: .gray, radius: 2, x: 0, y: 3)))
+		)			.mask(
+			RoundedRectangle(
+				cornerRadius: 15,
+				style: .continuous)
 			.padding(.vertical, 5)
-				)
+		)
 	}
 }
 
 struct liveMatchesView: View {
+	@ObservedObject private var viewModel = MatchViewModel()
+	
 	var body: some View {
 		ScrollView {
-			ForEach(0..<1, id: \.self) { num in
+			ForEach(viewModel.matches) { match in
+				let homeName = match.home_name.components(separatedBy: " ")
+				let awayName = match.away_name.components(separatedBy: " ")
+				let homeLogo = "\(match.home_alias)_logo"
+				let awayLogo = "\(match.away_alias)_logo"
+				
 				VStack {
-					liveMatchView()
-					liveMatchView2()
+					liveMatchView2(homeName: homeName[1], awayName: awayName[1], homeScore: match.home_points, awayScore: match.away_points, homeLogo: homeLogo, awayLogo: awayLogo, venueName: match.venue_name)
 				}.padding(.horizontal, 10)
+			}
+			.onAppear() {
+				self.viewModel.fetchData()
 			}
 		}
 	}
