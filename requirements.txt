@@ -8,3 +8,6 @@ pytz
 requests
 six
 urllib3
+python-firebase
+firebase_admin
+apscheduler
