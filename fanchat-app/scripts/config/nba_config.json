@@ -1,0 +1,57 @@
+{
+    "api_key_param": "/fanchat/nba-api-token",
+    "api_sport": "http://api.sportradar.us/nba/",
+    "dynamodb_table": "NbaMatchTable",
+    "field_mapping": {
+        "MatchId": {
+            "field": "{scheduled}_{home_alias}_{away_alias}",
+            "type": "S"
+        },
+        "Date": {
+            "field": "scheduled",
+            "type": "S"
+        },
+        "Venue": {
+            "field": "venue.name",
+            "type": "S"
+        },
+        "HomeTeam": {
+            "field": "home.name",
+            "type": "S"
+        },
+        "AwayTeam": {
+            "field": "away.name",
+            "type": "S"
+        },
+        "HomeAlias": {
+            "field": "home.alias",
+            "type": "S"
+        },
+        "AwayAlias": {
+            "field": "away.alias",
+            "type": "S"
+        },
+        "HomePoints": {
+            "field": "home_points",
+            "type": "N"
+        },
+        "AwayPoints": {
+            "field": "away_points",
+            "type": "N"
+        },
+        "Clock": {
+            "field": "clock",
+            "type": "S"
+        },
+        "Quarter": {
+            "field": "quarter",
+            "type": "S"
+        }
+    },
+    "default_values": {
+        "HomePoints": 0,
+        "AwayPoints": 0,
+        "Clock": "N/A",
+        "Quarter": "N/A"
+    }
+}

@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  NbaMatchesFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      FunctionName: NbaMatchesFunction
+      Role: arn:aws:iam::961868453843:role/dev_lambda_access
+      CodeUri: scripts/
+      Handler: daily_nba_matches.lambda_handler
+      Runtime: python3.10
+      Timeout: 90
+      Architectures:
+        - x86_64
